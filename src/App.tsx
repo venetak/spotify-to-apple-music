@@ -2,6 +2,8 @@ import './App.css';
 import { useState, useEffect } from 'react';
 import { awaitTo } from './helpers/awaitTo';
 import axios from 'axios';
+import { Divider, List, Typography } from 'antd';
+
 
 const params = new URLSearchParams();
 params.append('grant_type', 'client_credentials');
@@ -91,28 +93,28 @@ function App() {
   }
 
   const listItems = tracks.map((item, idx) =>
-    <li key={idx}>
+    <div key={idx}>
+      <span><b>{idx+1}.  </b></span>
       <span>{item.track.artists[0].name}</span> - <span>{item.track.name}</span>
-    </li>
+    </div>
   );
   return (
     <div className="App">
 
     
-     <ol>{listItems}</ol>;
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <Divider orientation="left">Playlist</Divider>
+    <List
+      header={<div>Tracks</div>}
+      bordered
+      dataSource={listItems}
+      renderItem={(item: any) => (
+        <List.Item>
+          <Typography.Text mark></Typography.Text> {item}
+        </List.Item>
+      )}
+    />
+
+  
     </div>
   );
 }
